@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excellence Relationnelle — Atelier AXA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --marine: #1C2D4F;
+  --marine-deep: #111D33;
+  --marine-mid: #243460;
+  --marine-light: #2A3F6F;
+  --or: #D4AF37;
+  --or-light: #F0D97A;
+  --or-pale: rgba(212,175,55,0.12);
+  --blanc: #FFFFFF;
+  --blanc-off: #F5F7FA;
+  --blanc-fade: rgba(255,255,255,0.08);
+  --texte: #1C2D4F;
+  --texte-doux: #4A5A7A;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--blanc-off);color:var(--texte);overflow-x:hidden}
+
+/* ── TOP NAV ── */
+.top-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: var(--marine-deep);
+  border-bottom: 1px solid rgba(212,175,55,0.25);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+}
+.nav-logo-wrap {
+  display: flex; align-items: center; gap: 12px;
+}
+.nav-brand { display: flex; flex-direction: column; line-height: 1.2; }
+.nav-brand-main { font-family: 'DM Sans',sans-serif; font-weight:600; font-size:13px; color:var(--blanc); letter-spacing:1px; }
+.nav-brand-sub { font-family: 'Playfair Display',serif; font-style:italic; font-size:11px; color:var(--or); }
+.nav-pills { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.nav-pill {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.5px;
+  padding: 7px 16px;
+  border-radius: 40px;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  transition: all 0.2s;
+  background: rgba(255,255,255,0.05);
+}
+.nav-pill:hover {
+  border-color: var(--or);
+  color: var(--or);
+  background: rgba(212,175,55,0.08);
+}
+.budget-pill {
+  border-color: var(--or) !important;
+  color: var(--or) !important;
+  background: rgba(212,175,55,0.12) !important;
+  font-weight: 600;
+}
+.budget-pill:hover {
+  background: var(--or) !important;
+  color: var(--marine-deep) !important;
+}
+@media(max-width:600px) {
+  .nav-pills { display:none; }
+}
+
+/* ── HERO BUTTONS ── */
+.hero-buttons {
+  display: flex; gap: 14px; margin-top: 44px; flex-wrap: wrap; justify-content: center;
+  position: relative;
+  animation: fu 0.8s 0.6s ease both;
+}
+.hero-btn {
+  font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+  padding: 13px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.25s;
+  cursor: pointer;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+}
+.hero-btn-primary {
+  background: var(--or);
+  color: var(--marine-deep);
+}
+.hero-btn-primary:hover {
+  background: var(--or-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(212,175,55,0.3);
+}
+.hero-btn-secondary {
+  background: rgba(255,255,255,0.08);
+  color: var(--blanc);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.hero-btn-secondary:hover {
+  background: rgba(255,255,255,0.14);
+  transform: translateY(-2px);
+}
+.hero-btn-tarif {
+  background: transparent;
+  color: var(--or);
+  border: 2px solid var(--or);
+}
+.hero-btn-tarif:hover {
+  background: var(--or);
+  color: var(--marine-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(212,175,55,0.25);
+}
+
+/* ── BUDGET ACCORDION ── */
+.budget-accordion {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+.budget-accordion.open {
+  max-height: 600px;
+}
+
+/* ── BUDGET TRIGGER ── */
+.budget-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 4px 0 20px;
+  user-select: none;
+}
+.budget-trigger-icon {
+  font-size: 22px;
+  color: var(--or);
+  transition: transform 0.35s;
+}
+.budget-trigger.open .budget-trigger-icon {
+  transform: rotate(45deg);
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  background: var(--marine-deep);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 100px 40px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 60%, rgba(212,175,55,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 85% 25%, rgba(44,60,100,0.6) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(28,45,79,0.8) 0%, transparent 70%);
+}
+
+.hero-logo {
+  width: 90px;
+  height: 90px;
+  margin-bottom: 32px;
+  position: relative;
+  animation: fu 0.8s ease both;
+  filter: drop-shadow(0 4px 24px rgba(212,175,55,0.2));
+}
+
+.hero-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--or);
+  border: 1px solid rgba(212,175,55,0.35);
+  padding: 6px 18px;
+  border-radius: 2px;
+  margin-bottom: 32px;
+  position: relative;
+  animation: fu 0.8s 0.1s ease both;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(38px, 6.5vw, 82px);
+  font-weight: 900;
+  color: var(--blanc);
+  line-height: 1.0;
+  position: relative;
+  animation: fu 0.8s 0.2s ease both;
+}
+
+.hero h1 em { font-style: italic; color: var(--or); }
+
+.hero-sub {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.5);
+  margin-top: 20px;
+  max-width: 480px;
+  line-height: 1.8;
+  position: relative;
+  animation: fu 0.8s 0.35s ease both;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 36px;
+  margin-top: 48px;
+  position: relative;
+  animation: fu 0.8s 0.5s ease both;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hm-item { text-align: center; }
+.hm-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--or);
+}
+.hm-lab {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-top: 4px;
+}
+.hm-div { width: 1px; height: 44px; background: rgba(255,255,255,0.1); }
+
+.scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.2);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: bob 2.2s infinite;
+}
+
+@keyframes fu { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
+@keyframes bob {
+  0%,100%{transform:translateX(-50%) translateY(0)}
+  50%{transform:translateX(-50%) translateY(8px)}
+}
+
+/* ── SECTIONS ── */
+.section-wrap {
+  padding: 80px 40px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.slabel {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--or);
+  margin-bottom: 12px;
+}
+
+.stitle {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 4vw, 44px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  color: var(--marine);
+}
+
+.sintro {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--texte-doux);
+  max-width: 640px;
+  line-height: 1.85;
+  margin-bottom: 44px;
+}
+
+/* ── TABS ── */
+.tabs { display: flex; border-bottom: 2px solid #D8E0EE; margin-bottom: 40px; flex-wrap: wrap; }
+.tb {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 12px 24px;
+  border: none;
+  background: none;
+  color: var(--texte-doux);
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s;
+  letter-spacing: 0.3px;
+}
+.tb::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 2px;
+  background: var(--or);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+.tb.active { color: var(--marine); font-weight: 600; }
+.tb.active::after { transform: scaleX(1); }
+.tc { display: none; }
+.tc.active { display: block; animation: fi 0.4s ease; }
+@keyframes fi { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── TIMELINE ── */
+.tl { position: relative; padding-left: 28px; }
+.tl::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--or), var(--marine));
+}
+.tli {
+  position: relative;
+  margin-bottom: 28px;
+  padding: 24px 26px;
+  background: var(--blanc);
+  border-radius: 6px;
+  border: 1px solid #E0E8F5;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.tli:hover {
+  transform: translateX(4px);
+  box-shadow: -4px 0 0 var(--or), 0 4px 20px rgba(28,45,79,0.08);
+}
+.tli::before {
+  content: '';
+  position: absolute;
+  left: -34px; top: 28px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--or);
+  border: 3px solid var(--blanc-off);
+  box-shadow: 0 0 0 2px var(--or);
+}
+.tl-time { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--or); letter-spacing: 1px; margin-bottom: 5px; }
+.tl-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--marine); margin-bottom: 8px; }
+.tl-desc { font-size: 14px; color: var(--texte-doux); line-height: 1.75; }
+.tl-tag {
+  display: inline-block; margin-top: 10px;
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px;
+  background: var(--marine); color: var(--or); padding: 3px 10px; border-radius: 2px;
+}
+
+/* ── CONCEPT CARDS ── */
+.concept-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin: 32px 0; }
+.cc { padding: 24px; border-radius: 6px; border-top: 4px solid; }
+.cc.cnv { border-color: #4CAF50; background: rgba(76,175,80,0.06); }
+.cc.ass { border-color: #2196F3; background: rgba(33,150,243,0.06); }
+.cc.con { border-color: var(--or); background: var(--or-pale); }
+.cc h3 { font-family: 'Playfair Display', serif; font-size: 16px; margin-bottom: 8px; }
+.cc.cnv h3 { color: #2E7D32; }
+.cc.ass h3 { color: #1565C0; }
+.cc.con h3 { color: #8B6914; }
+.cc p { font-size: 13px; line-height: 1.7; color: var(--texte-doux); }
+
+/* ── TOOL CARDS ── */
+.tool-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 20px; margin-bottom: 40px; }
+.tool-card {
+  background: var(--marine);
+  color: var(--blanc);
+  border-radius: 6px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+.tool-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--or), var(--or-light));
+}
+.tool-card:hover { transform: translateY(-4px); }
+
+/* ── TABLE ── */
+.mtable { width: 100%; border-collapse: collapse; margin: 20px 0 32px; }
+.mtable th {
+  background: var(--marine);
+  color: var(--or);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  padding: 13px 16px; text-align: left;
+}
+.mtable td {
+  padding: 13px 16px;
+  border-bottom: 1px solid #E0E8F5;
+  font-size: 14px; line-height: 1.65; vertical-align: top;
+}
+.mtable tr:last-child td { border-bottom: none; }
+.mtable tr:nth-child(even) td { background: #F0F4FB; }
+.step-l { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 900; color: var(--or); display: block; }
+
+/* ── PROMPT SECTION ── */
+.prompt-bg {
+  background: var(--marine-deep);
+  padding: 80px 40px;
+}
+.prompt-inner { max-width: 1080px; margin: 0 auto; }
+
+.profile-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
+.pb {
+  font-size: 13px; font-weight: 500;
+  padding: 9px 20px;
+  border: 2px solid rgba(212,175,55,0.3);
+  border-radius: 40px;
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.55);
+  cursor: pointer; transition: all 0.2s;
+}
+.pb.active, .pb:hover {
+  border-color: var(--or);
+  color: var(--or);
+  background: rgba(212,175,55,0.08);
+}
+
+.pcard { background: var(--marine-light); border-radius: 8px; overflow: hidden; display: none; border: 1px solid rgba(212,175,55,0.15); }
+.pcard.active { display: block; animation: fi 0.3s ease; }
+
+.pcard-head {
+  padding: 16px 24px;
+  background: rgba(0,0,0,0.25);
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  flex-wrap: wrap; gap: 10px;
+}
+.pname { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--blanc); }
+.ctag {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px;
+  padding: 3px 10px; border-radius: 2px;
+  background: rgba(212,175,55,0.15); color: var(--or);
+}
+
+.ptabs-inner {
+  display: flex; border-bottom: 1px solid rgba(255,255,255,0.08);
+  flex-wrap: wrap;
+}
+.ptb {
+  font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+  padding: 11px 18px; background: none; border: none;
+  color: rgba(255,255,255,0.35); cursor: pointer; transition: color 0.2s;
+  position: relative;
+}
+.ptb.active { color: var(--or); }
+.ptb::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: var(--or);
+  transform: scaleX(0); transition: transform 0.3s;
+}
+.ptb.active::after { transform: scaleX(1); }
+
+.pbody { padding: 22px 24px; }
+.pmeta { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+.pmeta label { display: block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 3px; }
+.pmeta p { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
+.ptext {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(212,175,55,0.15);
+  border-radius: 6px;
+  padding: 18px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12.5px; color: rgba(255,255,255,0.82);
+  line-height: 1.85; white-space: pre-wrap; margin-bottom: 14px;
+}
+.ptext .h { color: var(--or); font-weight: 500; }
+
+.copy-btn {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+  padding: 8px 18px;
+  background: rgba(212,175,55,0.1);
+  color: var(--or);
+  border: 1px solid rgba(212,175,55,0.35);
+  border-radius: 3px; cursor: pointer; transition: all 0.2s;
+}
+.copy-btn:hover { background: var(--or); color: var(--marine-deep); }
+
+.ctags { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 10px; }
+.ctag-c { font-size: 10px; letter-spacing: 1px; padding: 3px 9px; border-radius: 2px; }
+.t-cnv { background: rgba(76,175,80,0.15); color: #81C784; }
+.t-ass { background: rgba(33,150,243,0.15); color: #64B5F6; }
+.t-con { background: rgba(212,175,55,0.15); color: var(--or-light); }
+
+.pit { display: none; }
+.pit.active { display: block; animation: fi 0.3s ease; }
+
+/* ── FAQ ── */
+.faq-bg { background: var(--blanc-off); }
+.acc { margin-bottom: 7px; }
+.acc-h {
+  width: 100%; text-align: left;
+  padding: 16px 22px;
+  background: var(--blanc);
+  border: 1px solid #E0E8F5;
+  cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+  color: var(--marine); border-radius: 6px;
+  transition: all 0.2s;
+}
+.acc-h:hover { background: #EEF2FA; border-color: var(--or); }
+.acc-icon { font-size: 20px; color: var(--or); transition: transform 0.3s; }
+.acc-h.open .acc-icon { transform: rotate(45deg); }
+.acc-b {
+  display: none; padding: 18px 22px 22px;
+  background: white; border: 1px solid #E0E8F5; border-top: none;
+  border-radius: 0 0 6px 6px;
+  font-size: 14px; line-height: 1.8; color: var(--texte-doux);
+}
+.acc-b.open { display: block; animation: fi 0.3s ease; }
+
+/* ── BUDGET ── */
+.budget-box {
+  background: var(--marine);
+  color: var(--blanc);
+  border-radius: 8px; padding: 44px; margin-top: 52px;
+  position: relative; overflow: hidden;
+  border: 1px solid rgba(212,175,55,0.2);
+}
+.budget-box::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--or), var(--or-light));
+}
+.budget-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 28px; }
+.bi { border-left: 2px solid rgba(212,175,55,0.35); padding-left: 18px; }
+.bi .bl { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 7px; }
+.bi .bv { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--or); }
+.bi .bd { font-size: 13px; color: rgba(255,255,255,0.45); margin-top: 5px; line-height: 1.6; }
+
+/* ── SECTION DIVIDER ── */
+.section-divider {
+  height: 3px;
+  background: linear-gradient(90deg, var(--marine), var(--or), var(--marine));
+  opacity: 0.3;
+}
+
+/* ── ALERT BOX ── */
+.alert-box {
+  background: rgba(212,175,55,0.1);
+  border-left: 4px solid var(--or);
+  padding: 16px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #7A5C00;
+  margin-top: 10px;
+}
+
+footer {
+  background: var(--marine-deep);
+  border-top: 1px solid rgba(212,175,55,0.2);
+  color: rgba(255,255,255,0.3);
+  text-align: center;
+  padding: 32px 20px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+footer .logo-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+footer span { color: var(--or); }
+
+@media(max-width:768px) {
+  .section-wrap { padding: 56px 22px; }
+  .hero { padding: 90px 22px 50px; }
+  .hero-meta { gap: 20px; }
+  .budget-grid { grid-template-columns: 1fr; }
+  .concept-grid { grid-template-columns: 1fr; }
+  .pmeta { grid-template-columns: 1fr; }
+  .prompt-bg { padding: 56px 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV SIMPLE -->
+<div class="top-nav">
+  <div class="nav-logo-wrap">
+    <img src="logo.png" alt="A4P Mental" style="width:40px;height:40px;object-fit:contain;border-radius:8px;">
+    <div class="nav-brand">
+      <div class="nav-brand-main">A4P Mental</div>
+      <div class="nav-brand-sub">Alexandre Griffet</div>
+    </div>
+  </div>
+  <div class="nav-pills">
+    <button onclick="goTo('programme')" class="nav-pill">Programme</button>
+    <button onclick="goTo('outils')" class="nav-pill">Outils</button>
+    <button onclick="goTo('prompts')" class="nav-pill">Prompts IA</button>
+    <button onclick="openBudget()" class="nav-pill budget-pill">💶 Tarif</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <img src="logo.png" alt="A4P Mental" style="width:90px;height:90px;object-fit:contain;border-radius:14px;filter:drop-shadow(0 4px 24px rgba(212,175,55,0.2));">
+
+  <div class="hero-badge">Proposition de Formation — Agents Généraux AXA</div>
+  <h1>Excellence<br><em>Relationnelle</em></h1>
+  <p class="hero-sub">Transformer les tensions clients en fidélité durable — Atelier 2h opérationnel</p>
+
+  <div class="hero-meta">
+    <div class="hm-item"><div class="hm-val">2h</div><div class="hm-lab">Atelier</div></div>
+    <div class="hm-div"></div>
+    <div class="hm-item"><div class="hm-val">15</div><div class="hm-lab">Participants</div></div>
+    <div class="hm-div"></div>
+    <div class="hm-item"><div class="hm-val">3</div><div class="hm-lab">Canaux</div></div>
+    <div class="hm-div"></div>
+    <div class="hm-item"><div class="hm-val">IA</div><div class="hm-lab">Intégrée</div></div>
+  </div>
+  <div class="hero-buttons">
+    <button onclick="goTo('programme')" class="hero-btn hero-btn-secondary">📋 Programme</button>
+    <button onclick="goTo('outils')" class="hero-btn hero-btn-secondary">🛠 Outils</button>
+    <button onclick="goTo('prompts')" class="hero-btn hero-btn-secondary">🤖 Prompts IA</button>
+    <button class="hero-btn hero-btn-tarif" onclick="openBudget()">💶 Voir le Tarif</button>
+  </div>
+  <div class="scroll-hint">↓ Découvrir</div>
+</div>
+
+<!-- PROGRAMME -->
+<div id="programme">
+<div class="section-wrap">
+  <div class="slabel">01 — Programme</div>
+  <h2 class="stitle">Deux propositions,<br>un seul objectif</h2>
+  <p class="sintro">Choisissez le format adapté à votre groupe. La Formule A structure la progression ; la Formule B plonge le groupe dans un cas réel unique.</p>
+
+  <div class="tabs">
+    <button class="tb active" onclick="switchTab('prog','a',this)">⚡ Formule A — 3 Temps Forts</button>
+    <button class="tb" onclick="switchTab('prog','b',this)">🔥 Formule B — Cas Central</button>
+  </div>
+
+  <div id="prog-a" class="tc active">
+    <div class="tl">
+      <div class="tli">
+        <div class="tl-time">0:00 → 0:20 — Ouverture</div>
+        <div class="tl-title">🎯 Diagnostic Partagé</div>
+        <div class="tl-desc">Question ouverte lancée au groupe : <em>« Quelle est la situation relationnelle la plus difficile que vous avez vécue récemment ? »</em><br><br>
+        Recueil sur post-its ou Mentimeter. Catégorisation live en 3 types : client déçu (performance) / client trahi (conseil) / client perdu (incompréhension).<br><br>
+        <strong>Apport théorique flash :</strong> Les 3 profils de crise + les déclencheurs émotionnels en assurance.</div>
+        <span class="tl-tag">Collectif — Météo émotionnelle</span>
+      </div>
+      <div class="tli">
+        <div class="tl-time">0:20 → 1:10 — Corps</div>
+        <div class="tl-title">🛠 Boîte à Outils — 3 Modules de 15 min</div>
+        <div class="tl-desc"><strong>Module Mail/Courrier :</strong> Méthode ERRC (Empathie / Réalité / Réassurance / Cap). Exercice binôme : réécrire un mail « mauvais » fourni.<br><br>
+        <strong>Module Téléphone :</strong> Méthode 4V (Voix / Validation / Vérité / Vers quoi). Jeu de rôle trinôme : client / agent / observateur — 5 min sur un cas du diagnostic.<br><br>
+        <strong>Module Face-à-Face :</strong> Posture ACC (Accueillir / Cadrer / Co-construire). Focus : présenter des résultats négatifs sans perdre la relation.</div>
+        <span class="tl-tag">Ateliers pratiques — Fiches outils</span>
+      </div>
+      <div class="tli">
+        <div class="tl-time">1:10 → 1:40 — IA</div>
+        <div class="tl-title">🤖 Prompts IA Prêts à l'Emploi</div>
+        <div class="tl-desc">5 fiches prompts clés-en-main selon le profil client. Chaque fiche : pour qui / pourquoi / quand / comment l'utiliser.<br><br>
+        Démonstration live. Chaque agent repart avec ses prompts imprimés, intégrant CNV, assertivité et congruence.</div>
+        <span class="tl-tag">Individuel — Fiches prompts</span>
+      </div>
+      <div class="tli">
+        <div class="tl-time">1:40 → 2:00 — Clôture</div>
+        <div class="tl-title">✅ L'Engagement des 7 Jours</div>
+        <div class="tl-desc">Chaque participant choisit <strong>1 action concrète</strong> à mettre en œuvre dans les 7 jours. Tour de table flash : <em>« Ce que je fais différemment dès demain »</em>.<br><br>
+        Remise des fiches-outils personnalisées (3 grilles + 1 prompt validé).</div>
+        <span class="tl-tag">Collectif — Engagement individuel</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="prog-b" class="tc">
+    <div class="tl">
+      <div class="tli">
+        <div class="tl-time">0:00 → 0:20 — Ouverture</div>
+        <div class="tl-title">🎯 Un Cas Réel, Choisi par le Groupe</div>
+        <div class="tl-desc">Le groupe vote pour LA situation relationnelle la plus représentative. Ce cas devient le fil conducteur de toute la session — aucun cas fictif, tout en réalité terrain.</div>
+        <span class="tl-tag">Immersif — Vote collectif</span>
+      </div>
+      <div class="tli">
+        <div class="tl-time">0:20 → 1:30 — Corps</div>
+        <div class="tl-title">🔄 Le Cas sous Tous les Angles</div>
+        <div class="tl-desc"><strong>Comment lui écrire ?</strong> → Rédaction d'un mail type en sous-groupes, lecture et vote du meilleur.<br><br>
+        <strong>Comment lui téléphoner ?</strong> → Simulation en plénière avec feedback immédiat.<br><br>
+        <strong>Comment le recevoir ?</strong> → Mise en scène avec grille d'observation collective.<br><br>
+        <strong>Quel prompt IA préparer ?</strong> → Rédaction collective du prompt adapté.</div>
+        <span class="tl-tag">Simulation — Très haute implication</span>
+      </div>
+      <div class="tli">
+        <div class="tl-time">1:30 → 2:00 — Clôture</div>
+        <div class="tl-title">📋 Synthèse & Kit de Sortie</div>
+        <div class="tl-desc">Le formateur synthétise les bonnes pratiques extraites du cas. Remise des fiches-outils universelles + le prompt IA co-construit par le groupe, prêt à réutiliser.</div>
+        <span class="tl-tag">Collectif — Kit personnalisé</span>
+      </div>
+    </div>
+    <div class="alert-box">⚡ <strong>Formule B :</strong> Plus immersive, plus forte en impact. Recommandée si le groupe est homogène et demandeur. Nécessite une animation flexible.</div>
+  </div>
+</div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- OUTILS -->
+<div id="outils">
+<div class="section-wrap">
+  <div class="slabel">02 — Outils Pratiques</div>
+  <h2 class="stitle">Les 3 méthodes<br>clés-en-main</h2>
+  <p class="sintro">Chaque méthode est fondée sur la Communication Non-Violente, l'assertivité et la congruence. Des grilles à garder sur son bureau.</p>
+
+  <div class="concept-grid">
+    <div class="cc cnv">
+      <h3>🟢 CNV</h3>
+      <p>Observer sans juger, exprimer ses ressentis, identifier ses besoins, formuler une demande concrète. La base pour désamorcer sans blesser.</p>
+    </div>
+    <div class="cc ass">
+      <h3>🔵 Assertivité</h3>
+      <p>S'affirmer avec respect — ni agressivité ni soumission. Dire non quand nécessaire, maintenir la relation tout en étant clair.</p>
+    </div>
+    <div class="cc con">
+      <h3>🟡 Congruence</h3>
+      <p>Aligner ce qu'on dit, ce qu'on ressent et ce qu'on fait. Le client perçoit l'authenticité. La congruence construit la confiance durable.</p>
+    </div>
+  </div>
+
+  <div class="tabs" style="margin-top:16px">
+    <button class="tb active" onclick="switchTab('outil','errc',this)">📧 ERRC — Mail</button>
+    <button class="tb" onclick="switchTab('outil','4v',this)">📞 4V — Téléphone</button>
+    <button class="tb" onclick="switchTab('outil','acc',this)">🤝 ACC — Face-à-Face</button>
+  </div>
+
+  <div id="outil-errc" class="tc active">
+    <p style="font-size:15px;color:var(--texte-doux);margin-bottom:22px;line-height:1.7">La méthode <strong>ERRC</strong> structure tout écrit difficile. Elle empêche de se défendre trop vite ou d'être vague sur la suite.</p>
+    <table class="mtable">
+      <tr><th>Étape</th><th>Ce qu'on fait</th><th>Exemple concret</th><th>Ancrage</th></tr>
+      <tr><td><span class="step-l">E</span>mpathie</td><td>Reconnaître la déception avant tout argument.</td><td><em>« Je comprends que l'évolution de votre contrat ne correspond pas à vos attentes. »</em></td><td style="color:#2E7D32;font-weight:500">CNV</td></tr>
+      <tr><td><span class="step-l">R</span>éalité</td><td>Poser les faits clairement, sans jargon.</td><td><em>« Votre contrat a progressé de +1,2% en 2024, dans un contexte de forte volatilité. »</em></td><td style="color:#8B6914;font-weight:500">Congruence</td></tr>
+      <tr><td><span class="step-l">R</span>éassurance</td><td>Ce que vous faites concrètement.</td><td><em>« Nous avons sécurisé une partie en fonds euros dès mars. »</em></td><td style="color:#1565C0;font-weight:500">Assertivité</td></tr>
+      <tr><td><span class="step-l">C</span>ap</td><td>Proposer toujours une prochaine étape datée.</td><td><em>« Je vous propose un point de 20 min cette semaine. »</em></td><td style="color:#8B6914;font-weight:500">Congruence</td></tr>
+    </table>
+  </div>
+
+  <div id="outil-4v" class="tc">
+    <p style="font-size:15px;color:var(--texte-doux);margin-bottom:22px;line-height:1.7">La méthode <strong>4V</strong> gère l'appel entrant d'un client mécontent. Elle ralentit la conversation et repart sur une action.</p>
+    <table class="mtable">
+      <tr><th>Étape</th><th>Ce qu'on fait</th><th>Exemple concret</th><th>Ancrage</th></tr>
+      <tr><td><span class="step-l">V</span>oix</td><td>Baisser le ton, ralentir le débit. Le calme est contagieux.</td><td>Respirer avant de décrocher. Sourire (ça s'entend).</td><td style="color:#8B6914;font-weight:500">Congruence</td></tr>
+      <tr><td><span class="step-l">V</span>alidation</td><td>Nommer l'émotion du client avant d'expliquer quoi que ce soit.</td><td><em>« Je comprends que cette situation est vraiment préoccupante pour vous. »</em></td><td style="color:#2E7D32;font-weight:500">CNV</td></tr>
+      <tr><td><span class="step-l">V</span>érité</td><td>Une seule information claire à la fois. Zéro jargon.</td><td><em>« Votre capital garanti n'est pas impacté. »</em></td><td style="color:#1565C0;font-weight:500">Assertivité</td></tr>
+      <tr><td><span class="step-l">V</span>ers quoi</td><td>Terminer TOUJOURS sur une action concrète avec une date.</td><td><em>« Je vous envoie un récapitulatif dans l'heure, rappel jeudi 10h. »</em></td><td style="color:#8B6914;font-weight:500">Congruence</td></tr>
+    </table>
+  </div>
+
+  <div id="outil-acc" class="tc">
+    <p style="font-size:15px;color:var(--texte-doux);margin-bottom:22px;line-height:1.7">La méthode <strong>ACC</strong> structure l'entretien physique. Elle prévient l'escalade et crée les conditions d'une décision partagée.</p>
+    <table class="mtable">
+      <tr><th>Étape</th><th>Ce qu'on fait</th><th>Exemple concret</th><th>Ancrage</th></tr>
+      <tr><td><span class="step-l">A</span>ccueillir</td><td>L'émotion avant l'argument. Laisser parler 90 secondes sans interrompre.</td><td>Hocher la tête, contact visuel, ne pas sortir les chiffres.</td><td style="color:#2E7D32;font-weight:500">CNV</td></tr>
+      <tr><td><span class="step-l">C</span>adrer</td><td>Poser l'agenda de la réunion dès le début.</td><td><em>« On a 45 min. Je propose : votre ressenti, puis les chiffres ensemble. »</em></td><td style="color:#1565C0;font-weight:500">Assertivité</td></tr>
+      <tr><td><span class="step-l">C</span>o-construire</td><td>Proposer des options et décider ensemble.</td><td><em>« Je vois trois pistes — laquelle correspond à ce que vous souhaitez ? »</em></td><td style="color:#8B6914;font-weight:500">Congruence</td></tr>
+    </table>
+  </div>
+</div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- PROMPTS IA -->
+<div id="prompts" class="prompt-bg">
+  <div class="prompt-inner">
+    <div class="slabel" style="color:var(--or)">03 — Prompts IA</div>
+    <h2 class="stitle" style="color:var(--blanc)">Fiches Prompts <em style="font-family:'Playfair Display',serif;color:var(--or)">Prêtes à l'emploi</em></h2>
+    <p class="sintro" style="color:rgba(255,255,255,0.5)">Copiez, complétez les crochets, envoyez à votre IA. Chaque fiche intègre CNV, assertivité et congruence.</p>
+
+    <div class="profile-tabs">
+      <button class="pb active" onclick="switchProfile('part',this)">👤 Particulier</button>
+      <button class="pb" onclick="switchProfile('arti',this)">🔨 Artisan</button>
+      <button class="pb" onclick="switchProfile('com',this)">🏪 Commerçant</button>
+      <button class="pb" onclick="switchProfile('lib',this)">⚕️ Libéral</button>
+      <button class="pb" onclick="switchProfile('entr',this)">🏢 Entreprise</button>
+    </div>
+
+    <!-- PARTICULIER -->
+    <div class="pcard active" id="pcard-part">
+      <div class="pcard-head"><div class="pname">Client Particulier — Épargne / Retraite</div><div class="ctag">3 canaux</div></div>
+      <div class="ptabs-inner">
+        <button class="ptb active" onclick="switchPromptTab('part','mail',this)">📧 Mail</button>
+        <button class="ptb" onclick="switchPromptTab('part','tel',this)">📞 Téléphone</button>
+        <button class="ptb" onclick="switchPromptTab('part','rdv',this)">🤝 Face-à-Face</button>
+      </div>
+      <div class="pbody">
+        <div class="pit active" id="part-mail">
+          <div class="pmeta">
+            <div><label>Pour qui</label><p>Particulier 45-65 ans, épargne ou retraite déçue</p></div>
+            <div><label>Pourquoi</label><p>Répondre à un mail de mécontentement sur les performances</p></div>
+            <div><label>Quand</label><p>Dans les 2h suivant la réception du mail de plainte</p></div>
+          </div>
+          <div class="ptext" id="txt-part-mail">Tu es un expert en communication bienveillante et relation client en assurance.
+
+<span class="h">CONTEXTE :</span>
+Mon client s'appelle [PRÉNOM NOM]. Particulier d'environ [ÂGE] ans. Contrat d'[épargne / assurance-vie / retraite] AXA. Il exprime sa déception face à [PRÉCISER : baisse de rendement / stagnation / frais].
+
+<span class="h">MISSION :</span>
+Rédige un mail de réponse qui :
+1. Reconnaît sincèrement sa déception SANS se défendre (CNV)
+2. Explique la réalité du contexte en langage simple et honnête (congruence)
+3. Rassure sur ce qui est solide dans son contrat (assertivité positive)
+4. Propose une prochaine étape concrète avec une date (engagement tenu)
+
+<span class="h">TON :</span> Humain, proche, jamais condescendant. Pas de jargon financier.
+<span class="h">LONGUEUR :</span> 180 à 220 mots maximum.
+<span class="h">FORMAT :</span> Objet du mail + corps + formule de politesse chaleureuse.</div>
+          <button class="copy-btn" onclick="copyPrompt('txt-part-mail',this)">Copier ce prompt</button>
+          <div class="ctags">
+            <span class="ctag-c t-cnv">CNV — Empathie avant défense</span>
+            <span class="ctag-c t-ass">Assertivité — Vérité sans agression</span>
+            <span class="ctag-c t-con">Congruence — Action = parole</span>
+          </div>
+        </div>
+        <div class="pit" id="part-tel">
+          <div class="pmeta">
+            <div><label>Pour qui</label><p>Particulier mécontent après un relevé décevant</p></div>
+            <div><label>Pourquoi</label><p>Préparer l'appel et anticiper les objections</p></div>
+            <div><label>Quand</label><p>Avant de rappeler ou de prendre l'appel entrant</p></div>
+          </div>
+          <div class="ptext" id="txt-part-tel">Tu es un coach en communication téléphonique pour agents d'assurance.
+
+<span class="h">CONTEXTE :</span>
+Je dois rappeler [PRÉNOM] au sujet de [PROBLÈME]. Il est probablement anxieux et dans un état émotionnel négatif.
+
+<span class="h">MISSION :</span>
+Prépare-moi un guide d'appel de 5 minutes avec :
+1. Une phrase d'ouverture qui valide son émotion (vraie empathie CNV)
+2. Les 2-3 objections les plus probables + une réponse assertive à chacune
+3. Une conclusion qui engage une action concrète ET une date
+4. Les 3 mots à éviter absolument pendant cet appel
+
+<span class="h">TON :</span> Calme, posé, confiant sans être arrogant. Congruent.
+<span class="h">FORMAT :</span> Guide structuré, court, utilisable comme aide-mémoire pendant l'appel.</div>
+          <button class="copy-btn" onclick="copyPrompt('txt-part-tel',this)">Copier ce prompt</button>
+          <div class="ctags">
+            <span class="ctag-c t-cnv">CNV — Validation émotionnelle</span>
+            <span class="ctag-c t-ass">Assertivité — Réponses aux objections</span>
+            <span class="ctag-c t-con">Congruence — Engagement daté</span>
+          </div>
+        </div>
+        <div class="pit" id="part-rdv">
+          <div class="pmeta">
+            <div><label>Pour qui</label><p>Particulier en bilan annuel, sous-performance</p></div>
+            <div><label>Pourquoi</label><p>Préparer un entretien physique difficile</p></div>
+            <div><label>Quand</label><p>La veille ou le matin du rendez-vous</p></div>
+          </div>
+          <div class="ptext" id="txt-part-rdv">Tu es expert en conduite d'entretiens difficiles en gestion de patrimoine.
+
+<span class="h">CONTEXTE :</span>
+Je reçois [PRÉNOM NOM] pour son bilan annuel. Contrat [TYPE] affiche [PERFORMANCE]. Je m'attends à une réaction [neutre / déçue / vive].
+
+<span class="h">MISSION :</span>
+Prépare-moi le plan d'entretien de 45 minutes avec :
+1. Comment accueillir son entrée et créer une atmosphère sécurisante (CNV)
+2. Quel agenda proposer en début de réunion (cadrage assertif)
+3. Comment présenter les chiffres décevants sans minimiser ni catastrophiser
+4. Quelles questions ouvertes pour co-construire la suite avec lui
+5. Comment conclure avec un engagement mutuel clair (congruence)
+
+<span class="h">FORMAT :</span> Plan en 5 étapes avec durées indicatives et formulations clés.</div>
+          <button class="copy-btn" onclick="copyPrompt('txt-part-rdv',this)">Copier ce prompt</button>
+          <div class="ctags">
+            <span class="ctag-c t-cnv">CNV — Accueil de l'émotion</span>
+            <span class="ctag-c t-ass">Assertivité — Cadrage clair</span>
+            <span class="ctag-c t-con">Congruence — Co-construction</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTISAN -->
+    <div class="pcard" id="pcard-arti">
+      <div class="pcard-head"><div class="pname">Client Artisan — Concret & Efficace</div><div class="ctag">3 canaux</div></div>
+      <div class="ptabs-inner">
+        <button class="ptb active" onclick="switchPromptTab('arti','mail',this)">📧 Mail</button>
+        <button class="ptb" onclick="switchPromptTab('arti','tel',this)">📞 Téléphone</button>
+        <button class="ptb" onclick="switchPromptTab('arti','rdv',this)">🤝 Face-à-Face</button>
+      </div>
+      <div class="pbody">
+        <div class="pit active" id="arti-mail">
+          <div class="pmeta">
+            <div><label>Pour qui</label><p>Artisan (plombier, électricien…), très peu de temps</p></div>
+            <div><label>Pourquoi</label><p>Réponse rapide, concrète, sans fioritures</p></div>
+            <div><label>Quand</label><p>Réponse à une réclamation ou un manque de nouvelles</p></div>
+          </div>
+          <div class="ptext" id="txt-arti-mail">Tu es expert en communication directe pour clients artisans très occupés.
+
+<span class="h">CONTEXTE :</span>
+Mon client [PRÉNOM], artisan [MÉTIER], me contacte au sujet de [PROBLÈME]. Il a peu de temps, lit vite, veut du concret.
+
+<span class="h">MISSION :</span>
+Rédige un mail qui :
+1. Va droit au but en 3 lignes max (pas de blabla empathique lourd)
+2. Donne UNE information claire et vraie sur la situation (congruence totale)
+3. Propose UNE action concrète avec UNE date précise
+4. Reste chaleureux mais sans excès — il préfère l'efficacité
+
+<span class="h">TON :</span> Direct, franc, professionnel. Comme un collègue sérieux.
+<span class="h">LONGUEUR :</span> 100 mots maximum.
+<span class="h">FORMAT :</span> Objet ultra-court + 3 paragraphes max + signature simple.</div>
+          <button class="copy-btn" onclick="copyPrompt('txt-arti-mail',this)">Copier ce prompt</button>
+          <div class="ctags">
+            <span class="ctag-c t-ass">Assertivité — Direct et clair</span>
+            <span class="ctag-c t-con">Congruence — Efficacité réelle</span>
+          </div>
+        </div>
+        <div class="pit" id="arti-tel">
+          <div class="pmeta">
+            <div><label>Pour qui</label><p>Artisan qui rappelle entre deux chantiers</p></div>
+            <div><label>Pourquoi</label><p>Appel court, efficace, qui rassure</p></div>
+            <div><label>Quand</label><p>Avant de rappeler un artisan mécontent</p></div>
+          </div>
+          <div class="ptext" id="txt-arti-tel">Tu es spécialisé en communication téléphonique avec des artisans.
+
+<span class="h">CONTEXTE :</span>
+Je rappelle [PRÉNOM], artisan [MÉTIER], au sujet de [PROBLÈME]. Il a appelé entre deux interventions. Je dispose de 5 minutes max.
+
+<span class="h">MISSION :</span>
+Script d'appel en 4 étapes :
+1. Accroche rapide qui montre que j'ai compris son problème (15 sec)
+2. Réponse directe et honnête — 1 fait, 1 chiffre si possible (1 min)
+3. Ce que JE fais concrètement pour lui (30 sec)
+4. La prochaine étape — qui fait quoi, quand (30 sec)
+
+<span class="h">CONTRAINTE :</span> Zéro jargon. Si je ne sais pas, je le dis et je dis quand je saurai.
+<span class="h">FORMAT :</span> Script court avec timing, prêt à lire pendant l'appel.</div>
+          <button class="copy-btn" onclick="copyPrompt('txt-arti-tel',this)">Copier ce prompt</button>
+          <div class="ctags">
+            <span class="ctag-c t-ass">Assertivité — Script clair</span>
+            <span class="ctag-c t-con">Congruence — Honnêteté totale</span>
+          </div>
+        </div>
+        <div class="pit" id="arti-rdv">
+          <div class="pmeta">
+            <div><label>Pour qui</label><p>Artisan en bilan annuel, souvent à son atelier</p></div>
+            <div><label>Pourquoi</label><p>Entretien court, terrain, sans PowerPoint</p></div>
+            <div><label>Quand</label><p>Avant un bilan annuel avec un artisan peu disponible</p></div>
+          </div>
+          <div class="ptext" id="txt-arti-rdv">Tu es expert en entretiens de confiance avec des artisans peu disponibles.
+
+<span class="h">CONTEXTE :</span>
+Je rencontre [PRÉNOM] pour son bilan annuel. Durée max : 30 minutes. Contexte : [résultats décevants / sujet sensible]. Il est direct, concret, allergique au jargon.
+
+<span class="h">MISSION :</span>
+Plan d'entretien de 30 minutes :
+1. Comment ouvrir sans discours — une question directe (CNV)
+2. Comment présenter la réalité chiffrée — phrases courtes, exemples concrets
+3. Comment aborder [SUJET DIFFICILE] sans tourner autour du pot (assertivité)
+4. Comment clore sur un accord verbal clair : ce qu'on fait, dans quel délai
+
+<span class="h">FORMAT :</span> Plan en 4 étapes, 2-3 phrases clés par étape, aide-mémoire papier.</div>
+          <button class="copy-btn" onclick="copyPrompt('txt-arti-rdv',this)">Copier ce prompt</button>
+          <div class="ctags">
+            <span class="ctag-c t-cnv">CNV — Question ouverte</span>
+            <span class="ctag-c t-ass">Assertivité — Franchise totale</span>
+            <span class="ctag-c t-con">Congruence — Accord verbal clair</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMMERÇANT -->
+    <div class="pcard" id="pcard-com">
+      <div class="pcard-head"><div class="pname">Client Commerçant — ROI & Proximité</div><div class="ctag">3 canaux</div></div>
+      <div class="ptabs-inner">
+        <button class="ptb active" onclick="switchPromptTab('com','mail',this)">📧 Mail</button>
+        <button class="ptb" onclick="switchPromptTab('com','tel',this)">📞 Téléphone</button>
+        <button class="ptb" onclick="switchPromptTab('com','rdv',this)">🤝 Face-à-Face</button>
+      </div>
+      <div class="pbody">
+        <div class="pit active" id="com-mail">
+          <div class="pmeta">
+            <div><label>Pour qui</label><p>Commerçant (restaurateur, boutiquier…)</p></div>
+            <div><label>Pourquoi</label><p>Mécontentement sur frais ou couverture</p></div>
+            <div><label>Quand</label><p>Suite à réclamation ou menace de résiliation</p></div>
+          </div>
+          <div class="ptext" id="txt-com-mail">Tu es expert en communication pour commerçants dans l'assurance professionnelle.
+
+<span class="h">CONTEXTE :</span>
+Mon client [PRÉNOM], [TYPE DE COMMERCE], me contacte car [PROBLÈME]. Il envisage [de résilier / de changer d'assureur].
+
+<span class="h">MISSION :</span>
+Mail qui :
+1. Reconnaît le problème avec sincérité — pas de langue de bois (CNV)
+2. Valorise ce que la relation lui a déjà apporté concrètement (assertivité positive)
+3. Propose une révision si pertinent — SEULEMENT si c'est vrai (congruence)
+4. Crée une raison de se revoir dans 15 jours maximum
+
+<span class="h">TON :</span> Commerçant à commerçant — pairs, pas de hiérarchie. Chaleureux, direct, loyal.
+<span class="h">LONGUEUR :</span> 150 mots max.
+<span class="h">FORMAT :</span> Mail avec objet accrocheur et invitation concrète.</div>
+          <button class="copy-btn" onclick="copyPrompt('txt-com-mail',this)">Copier ce prompt</button>
+          <div class="ctags">
+            <span class="ctag-c t-cnv">CNV — Sincérité</span>
+            <span class="ctag-c t-ass">Assertivité — Valorisation</span>
+            <span class="ctag-c t-con">Congruence — Pas de fausse promesse</span>
+          </div>
+        </div>
+        <div class="pit" id="com-tel">
+          <div class="pmeta">
+            <div><label>Pour qui</label><p>Commerçant en tension, joint entre deux flux</p></div>
+            <div><label>Pourquoi</label><p>Désamorcer avant que ça devienne résiliation</p></div>
+            <div><label>Quand</label><p>Appel de rétention d'urgence</p></div>
+          </div>
+          <div class="ptext" id="txt-com-tel">Tu es spécialisé en rétention client dans l'assurance professionnelle.
+
+<span class="h">CONTEXTE :</span>
+Je rappelle [PRÉNOM] en urgence. Il a exprimé [sa colère / son intention de partir]. Relation : [X ans], contrat [TYPE].
+
+<span class="h">MISSION :</span>
+Script d'appel de rétention de 7 minutes :
+1. Ouverture qui désarme — reconnaître sans se défendre (CNV — 1 min)
+2. Question pour comprendre ce qui le retiendrait vraiment (pas supposer)
+3. Réponse assertive à CE qu'il a dit — pas à ce que je croyais
+4. Proposition concrète et réaliste — JAMAIS promettre ce qu'on ne peut pas tenir
+5. Engagement mutuel clair en clôture
+
+<span class="h">FORMAT :</span> Script dialogué avec mes répliques + réponses probables du client.</div>
+          <button class="copy-btn" onclick="copyPrompt('txt-com-tel',this)">Copier ce prompt</button>
+          <div class="ctags">
+            <span class="ctag-c t-cnv">CNV — Écoute réelle</span>
+            <span class="ctag-c t-ass">Assertivité — Réponse ciblée</span>
+            <span class="ctag-c t-con">Congruence — Promesse réaliste</span>
+          </div>
+        </div>
+        <div class="pit" id="com-rdv">
+          <div class="pmeta">
+            <div><label>Pour qui</label><p>Commerçant en bilan, sensible au ROI</p></div>
+            <div><label>Pourquoi</label><p>Lui montrer ce que la relation lui rapporte</p></div>
+            <div><label>Quand</label><p>Bilan annuel ou réunion de crise</p></div>
+          </div>
+          <div class="ptext" id="txt-com-rdv">Tu es expert en entretiens à forte valeur ajoutée avec des commerçants.
+
+<span class="h">CONTEXTE :</span>
+Je rencontre [PRÉNOM] pour [bilan / réunion de crise]. Durée : [20/30/45] min. Enjeu : [le garder / réviser / hausse de tarif].
+
+<span class="h">MISSION :</span>
+Plan d'entretien "valeur perçue" :
+1. Ouvrir en valorisant ce qu'il a déjà — chiffres concrets (assertivité positive)
+2. Accueillir ses critiques sans les minimiser (CNV)
+3. Présenter [L'ENJEU DIFFICILE] avec congruence — dire les choses et assumer
+4. Co-construire une solution qu'il a lui-même choisie
+5. Clore sur sa fidélité — sans flagornerie, avec sincérité
+
+<span class="h">FORMAT :</span> Plan + formulations clés + 2 questions puissantes.</div>
+          <button class="copy-btn" onclick="copyPrompt('txt-com-rdv',this)">Copier ce prompt</button>
+          <div class="ctags">
+            <span class="ctag-c t-cnv">CNV — Accueil des critiques</span>
+            <span class="ctag-c t-ass">Assertivité — Valeur concrète</span>
+            <span class="ctag-c t-con">Congruence — Co-construction</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIBÉRAL -->
+    <div class="pcard" id="pcard-lib">
+      <div class="pcard-head"><div class="pname">Profession Libérale — Précision & Autonomie</div><div class="ctag">3 canaux</div></div>
+      <div class="ptabs-inner">
+        <button class="ptb active" onclick="switchPromptTab('lib','mail',this)">📧 Mail</button>
+        <button class="ptb" onclick="switchPromptTab('lib','tel',this)">📞 Téléphone</button>
+        <button class="ptb" onclick="switchPromptTab('lib','rdv',this)">🤝 Face-à-Face</button>
+      </div>
+      <div class="pbody">
+        <div class="pit active" id="lib-mail">
+          <div class="pmeta">
+            <div><label>Pour qui</label><p>Médecin, avocat, architecte, consultant</p></div>
+            <div><label>Pourquoi</label><p>Répondre à une critique précise et documentée</p></div>
+            <div><label>Quand</label><p>Suite à un mail argumenté de contestation</p></div>
+          </div>
+          <div class="ptext" id="txt-lib-mail">Tu es expert en communication avec des professionnels libéraux exigeants.
+
+<span class="h">CONTEXTE :</span>
+Mon client [PRÉNOM], [PROFESSION], conteste [PRÉCISER]. Il m'a envoyé un mail [précis / argumenté / avec chiffres]. Il est habitué à être pris au sérieux.
+
+<span class="h">MISSION :</span>
+Mail qui :
+1. Accuse réception avec respect — montrer qu'on a LU et COMPRIS (CNV)
+2. Répond point par point avec précision — chiffres, dates si possible (congruence)
+3. Assume si erreur commise — sans sur-excuses, avec correction concrète (assertivité)
+4. Propose une décision à prendre ENSEMBLE — il veut être acteur
+
+<span class="h">TON :</span> Pair respectueux. Ni servile ni arrogant. Précis, structuré, sincère.
+<span class="h">LONGUEUR :</span> 200-250 mots. FORMAT : Mail structuré, éventuellement en points numérotés.</div>
+          <button class="copy-btn" onclick="copyPrompt('txt-lib-mail',this)">Copier ce prompt</button>
+          <div class="ctags">
+            <span class="ctag-c t-cnv">CNV — Écoute précise</span>
+            <span class="ctag-c t-ass">Assertivité — Assumer les erreurs</span>
+            <span class="ctag-c t-con">Congruence — Décision partagée</span>
+          </div>
+        </div>
+        <div class="pit" id="lib-tel">
+          <div class="pmeta">
+            <div><label>Pour qui</label><p>Libéral qui veut des réponses précises</p></div>
+            <div><label>Pourquoi</label><p>Appel de fond sur un dossier contesté</p></div>
+            <div><label>Quand</label><p>Avant un appel difficile avec un client expert</p></div>
+          </div>
+          <div class="ptext" id="txt-lib-tel">Tu es expert en communication de haute précision avec des professionnels libéraux.
+
+<span class="h">CONTEXTE :</span>
+Je dois appeler [PRÉNOM], [PROFESSION], au sujet de [PROBLÈME PRÉCIS]. Il est [analytique / très informé / déjà en colère]. Il attend [des chiffres / des actes, pas des promesses].
+
+<span class="h">MISSION :</span>
+Guide d'appel en 5 étapes :
+1. Ouverture qui montre ma préparation — citer son dossier précisément dès la 1ère phrase
+2. Validation de son point de vue même si je ne suis pas d'accord (CNV)
+3. Réponse factuelle et complète avec les données exactes disponibles
+4. Ce que je ne sais pas encore et quand je saurai (congruence — ne pas improviser)
+5. Options claires en lui laissant choisir (assertivité respectueuse)
+
+<span class="h">CONTRAINTE :</span> Aucune approximation. Si question sans réponse certaine : "je vérifie et rappelle [date]".
+<span class="h">FORMAT :</span> Guide 5 étapes avec formulations précises.</div>
+          <button class="copy-btn" onclick="copyPrompt('txt-lib-tel',this)">Copier ce prompt</button>
+          <div class="ctags">
+            <span class="ctag-c t-cnv">CNV — Validation sans accord forcé</span>
+            <span class="ctag-c t-ass">Assertivité — Options claires</span>
+            <span class="ctag-c t-con">Congruence — Zéro improvisation</span>
+          </div>
+        </div>
+        <div class="pit" id="lib-rdv">
+          <div class="pmeta">
+            <div><label>Pour qui</label><p>Libéral en bilan patrimonial ou révision stratégique</p></div>
+            <div><label>Pourquoi</label><p>Entretien de haut niveau, client qui veut piloter</p></div>
+            <div><label>Quand</label><p>Avant un bilan annuel ou réunion de fond</p></div>
+          </div>
+          <div class="ptext" id="txt-lib-rdv">Tu es expert en entretiens patrimoniaux avec des professions libérales exigeantes.
+
+<span class="h">CONTEXTE :</span>
+Je rencontre [PRÉNOM], [PROFESSION], pour [bilan / révision stratégique / situation tendue]. Il est [autonome / méfiant / très informé sur les marchés].
+
+<span class="h">MISSION :</span>
+Plan d'entretien en 5 phases :
+1. Ouverture analytique : commencer par SA lecture de la situation (CNV)
+2. Présentation chiffrée pour qu'il lise les données lui-même (congruence)
+3. Gestion d'un désaccord probable : tenir ma position si je crois en ma recommandation (assertivité)
+4. Co-décision : options formulées pour qu'il choisisse en connaissance de cause
+5. Clôture avec engagement écrit — il veut du traçable
+
+<span class="h">FORMAT :</span> Plan détaillé + 3 questions puissantes + formulation pour tenir sa position sous pression.</div>
+          <button class="copy-btn" onclick="copyPrompt('txt-lib-rdv',this)">Copier ce prompt</button>
+          <div class="ctags">
+            <span class="ctag-c t-cnv">CNV — Le laisser parler en premier</span>
+            <span class="ctag-c t-ass">Assertivité — Tenir sa position</span>
+            <span class="ctag-c t-con">Congruence — Engagement écrit</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENTREPRISE -->
+    <div class="pcard" id="pcard-entr">
+      <div class="pcard-head"><div class="pname">Client Entreprise — Vision Globale & Enjeux RH</div><div class="ctag">3 canaux</div></div>
+      <div class="ptabs-inner">
+        <button class="ptb active" onclick="switchPromptTab('entr','mail',this)">📧 Mail</button>
+        <button class="ptb" onclick="switchPromptTab('entr','tel',this)">📞 Téléphone</button>
+        <button class="ptb" onclick="switchPromptTab('entr','rdv',this)">🤝 Face-à-Face</button>
+      </div>
+      <div class="pbody">
+        <div class="pit active" id="entr-mail">
+          <div class="pmeta">
+            <div><label>Pour qui</label><p>Dirigeant, DRH ou DAF, 10-200 salariés</p></div>
+            <div><label>Pourquoi</label><p>Remise en question des contrats collectifs</p></div>
+            <div><label>Quand</label><p>Suite à appel d'offres ou comparaison concurrente</p></div>
+          </div>
+          <div class="ptext" id="txt-entr-mail">Tu es expert en communication B2B dans l'assurance collective.
+
+<span class="h">CONTEXTE :</span>
+Mon interlocuteur est [PRÉNOM], [FONCTION] chez [ENTREPRISE]. Il remet en question [notre contrat / la gestion / les tarifs]. Enjeu : [renouvellement / résiliation / appel d'offres concurrent].
+
+<span class="h">MISSION :</span>
+Mail professionnel qui :
+1. Reconnaît la légitimité de sa démarche sans panique (CNV)
+2. Rappelle la valeur globale en chiffres : sinistres gérés, économies, services (assertivité de valeur)
+3. Propose une réunion de travail dans 10 jours avec ordre du jour précis
+4. Montre que je comprends ses enjeux RH/fiscaux — pas seulement son contrat
+
+<span class="h">TON :</span> Partenaire stratégique. Pas commercial, pas défensif. Orienté solutions.
+<span class="h">LONGUEUR :</span> 220 mots max. FORMAT : Mail structuré avec objet stratégique.</div>
+          <button class="copy-btn" onclick="copyPrompt('txt-entr-mail',this)">Copier ce prompt</button>
+          <div class="ctags">
+            <span class="ctag-c t-cnv">CNV — Légitimité reconnue</span>
+            <span class="ctag-c t-ass">Assertivité — Valeur prouvée</span>
+            <span class="ctag-c t-con">Congruence — Partenariat réel</span>
+          </div>
+        </div>
+        <div class="pit" id="entr-tel">
+          <div class="pmeta">
+            <div><label>Pour qui</label><p>Dirigeant sous pression, comparaison en cours</p></div>
+            <div><label>Pourquoi</label><p>Appel stratégique de maintien de relation</p></div>
+            <div><label>Quand</label><p>Avant une négociation ou rétention stratégique</p></div>
+          </div>
+          <div class="ptext" id="txt-entr-tel">Tu es expert en négociation et rétention dans l'assurance collective.
+
+<span class="h">CONTEXTE :</span>
+Je dois appeler [PRÉNOM], [FONCTION] de [ENTREPRISE]. Contexte : [appel d'offres / concurrent agressif / insatisfaction]. Relation : [durée, contrats, valeur estimée].
+
+<span class="h">MISSION :</span>
+Script d'appel stratégique de 10 minutes :
+1. Ouverture en partenaires — pas en vendeur/acheteur (CNV)
+2. Question ouverte sur SES enjeux du moment — pas sur le contrat
+3. Réponse assertive avec données concrètes
+4. Ma proposition différenciante — vrai différenciateur, pas du marketing (congruence)
+5. Clore sur une date de rencontre physique
+
+<span class="h">FORMAT :</span> Script dialogué avec timing + 2 arguments de différenciation à personnaliser.</div>
+          <button class="copy-btn" onclick="copyPrompt('txt-entr-tel',this)">Copier ce prompt</button>
+          <div class="ctags">
+            <span class="ctag-c t-cnv">CNV — Dialogue de partenaires</span>
+            <span class="ctag-c t-ass">Assertivité — Différenciation</span>
+            <span class="ctag-c t-con">Congruence — Vrai avantage</span>
+          </div>
+        </div>
+        <div class="pit" id="entr-rdv">
+          <div class="pmeta">
+            <div><label>Pour qui</label><p>Dirigeant / DRH en réunion de pilotage</p></div>
+            <div><label>Pourquoi</label><p>Entretien stratégique multi-interlocuteurs</p></div>
+            <div><label>Quand</label><p>Avant bilan annuel, audit ou réunion de crise</p></div>
+          </div>
+          <div class="ptext" id="txt-entr-rdv">Tu es expert en réunions stratégiques dans l'assurance collective.
+
+<span class="h">CONTEXTE :</span>
+Je rencontre [PRÉNOM + DRH / DAF / CE] pour [bilan / crise / renégociation]. Durée : 1h. Tension : [haute / moyenne]. Enjeu : [maintien / révision / extension].
+
+<span class="h">MISSION :</span>
+Plan de réunion en 6 étapes :
+1. Cadre partenarial — pas commercial (CNV + cadrage assertif)
+2. Tour de table des ressentis AVANT les chiffres — tous les interlocuteurs
+3. Données avec grille de lecture — leur donner les outils d'interprétation
+4. Gestion des objections multiples — prioriser, ne pas se disperser
+5. Solutions co-construites — les faire proposer, je valide (congruence)
+6. PV de décision oral à chaud + mail dans les 24h
+
+<span class="h">FORMAT :</span> Plan détaillé + formulations clés + stratégie si tension monte.</div>
+          <button class="copy-btn" onclick="copyPrompt('txt-entr-rdv',this)">Copier ce prompt</button>
+          <div class="ctags">
+            <span class="ctag-c t-cnv">CNV — Tous les interlocuteurs</span>
+            <span class="ctag-c t-ass">Assertivité — Objections multiples</span>
+            <span class="ctag-c t-con">Congruence — PV de décision réel</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- FAQ -->
+<div id="faq" class="faq-bg">
+<div class="section-wrap">
+  <div class="slabel">04 — Questions Fréquentes</div>
+  <h2 class="stitle">Ce que vous pourriez<br>nous demander</h2>
+  <p class="sintro">Réponses aux questions clés pour l'appel d'offres.</p>
+
+  <div class="acc">
+    <button class="acc-h" onclick="toggleAcc(this)">Pourquoi 2 formules ? <span class="acc-icon">+</span></button>
+    <div class="acc-b">La Formule A convient à tous les groupes : structurée, prévisible, rassurante. La Formule B est plus puissante mais nécessite un groupe prêt à s'impliquer. Proposer les deux montre votre expertise pédagogique et votre flexibilité.</div>
+  </div>
+  <div class="acc">
+    <button class="acc-h" onclick="toggleAcc(this)">Pourquoi intégrer l'IA dans cet atelier ? <span class="acc-icon">+</span></button>
+    <div class="acc-b">Les agents ont besoin d'outils réutilisables immédiatement. Les prompts permettent de préparer n'importe quel échange difficile en 3 minutes, sans formation préalable. Ils deviennent un assistant permanent, disponible 24h/24, ancré comme réflexe professionnel.</div>
+  </div>
+  <div class="acc">
+    <button class="acc-h" onclick="toggleAcc(this)">Comment gérer l'ouverture « problème ouvert » ? <span class="acc-icon">+</span></button>
+    <div class="acc-b">La clé est la catégorisation rapide. Quelles que soient les réponses, elles tombent dans 3 cases : client déçu / client trahi / client perdu. Le formateur annonce ces 3 cases dès l'ouverture — même 12 situations différentes s'organisent dans ce triptyque.</div>
+  </div>
+  <div class="acc">
+    <button class="acc-h" onclick="toggleAcc(this)">CNV, assertivité, congruence — n'est-ce pas trop théorique ? <span class="acc-icon">+</span></button>
+    <div class="acc-b">Ces concepts ne sont jamais nommés pendant la formation — ils sont vécus. Le formateur les intègre dans les exemples et exercices. Les participants découvrent après coup que ce qu'ils ont pratiqué s'appelle assertivité. L'apprentissage par l'expérience avant la nomination du concept est la clé de l'ancrage chez des profils terrain.</div>
+  </div>
+  <div class="acc">
+    <button class="acc-h" onclick="toggleAcc(this)">Quid des collaborateurs ? <span class="acc-icon">+</span></button>
+    <div class="acc-b">Les outils et prompts sont utilisables en autonomie ET transmissibles à des collaborateurs. Pour les agents avec équipe, le formateur ajoute en clôture : comment faire vivre ces outils en interne et partager les bonnes pratiques.</div>
+  </div>
+
+  <!-- BUDGET -->
+  <div class="budget-box" id="budget">
+    <div class="budget-trigger" id="budgetTrigger" onclick="toggleBudget()">
+      <div>
+        <div class="slabel" style="color:var(--or);margin-bottom:6px">05 — Budget</div>
+        <h2 class="stitle" style="color:var(--blanc);margin-bottom:0">Proposition tarifaire — <em style="color:var(--or);font-family:'Playfair Display',serif">1 000 €</em></h2>
+        <p style="color:rgba(255,255,255,0.4);font-size:13px;margin-top:8px">Cliquez pour voir le détail complet</p>
+      </div>
+      <span class="budget-trigger-icon">+</span>
+    </div>
+    <div class="budget-accordion" id="budgetAccordion">
+      <div class="budget-grid">
+        <div class="bi">
+          <div class="bl">Tarif unique</div>
+          <div class="bv">1 000 €</div>
+          <div class="bd">Atelier 2h · Formule A ou B au choix · Support numérique · Fiches outils PDF · 5 fiches prompts par participant</div>
+        </div>
+        <div class="bi">
+          <div class="bl">Ce qui est inclus</div>
+          <div class="bv" style="font-size:18px;line-height:1.4;margin-top:4px">Tout compris</div>
+          <div class="bd">3h de préparation amont · Animation 2h · Fiches outils · Prompts prêts à l'emploi · Bilan synthèse · Supports imprimés</div>
+        </div>
+        <div class="bi">
+          <div class="bl">Engagement formateur</div>
+          <div class="bv" style="font-size:18px;line-height:1.4;margin-top:4px">Résultat garanti</div>
+          <div class="bd">Chaque participant repart avec 1 outil activable dès le lendemain · 1 prompt testé · 1 engagement des 7 jours</div>
+        </div>
+        <div class="bi">
+          <div class="bl">Options sur devis</div>
+          <div class="bv" style="font-size:18px;line-height:1.4;margin-top:4px">Sur mesure</div>
+          <div class="bd">Suivi post-atelier 30 jours · Personnalisation poussée · Session supplémentaire collaborateurs</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo-footer">
+    <img src="logo.png" alt="A4P Mental" style="width:32px;height:32px;object-fit:contain;border-radius:6px;">
+    <span style="font-family:'Playfair Display',serif;font-size:14px;color:rgba(255,255,255,0.6)">A4P Mental — <em style="color:var(--or)">Alexandre Griffet</em></span>
+  </div>
+  <div>Atelier <span>Excellence Relationnelle</span> — Proposition Formation Agents AXA · 2025</div>
+  <div style="margin-top:6px;font-size:11px">Méthodes ERRC · 4V · ACC · Prompts IA · CNV · Assertivité · Congruence</div>
+</footer>
+
+<script>
+// BUDGET ACCORDION
+function toggleBudget() {
+  const acc = document.getElementById('budgetAccordion');
+  const trigger = document.getElementById('budgetTrigger');
+  acc.classList.toggle('open');
+  trigger.classList.toggle('open');
+}
+function openBudget() {
+  const section = document.getElementById('budget');
+  const acc = document.getElementById('budgetAccordion');
+  const trigger = document.getElementById('budgetTrigger');
+  acc.classList.add('open');
+  trigger.classList.add('open');
+  setTimeout(() => section.scrollIntoView({behavior:'smooth', block:'start'}), 50);
+}
+
+// TABS
+const tabGroups = {
+  prog: ['prog-a','prog-b'],
+  outil: ['outil-errc','outil-4v','outil-acc']
+};
+function switchTab(group, id, btn) {
+  btn.parentElement.querySelectorAll('.tb').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if(tabGroups[group]) {
+    tabGroups[group].forEach(i => { const el=document.getElementById(i); if(el) el.classList.remove('active'); });
+  }
+  const t = document.getElementById(group+'-'+id);
+  if(t) t.classList.add('active');
+}
+
+// PROFILES
+function switchProfile(id, btn) {
+  document.querySelectorAll('.pb').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.pcard').forEach(c => c.classList.remove('active'));
+  const t = document.getElementById('pcard-'+id);
+  if(t) t.classList.add('active');
+}
+
+// PROMPT TABS
+function switchPromptTab(profile, tab, btn) {
+  const card = document.getElementById('pcard-'+profile);
+  card.querySelectorAll('.ptb').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  card.querySelectorAll('.pit').forEach(p => p.classList.remove('active'));
+  const t = document.getElementById(profile+'-'+tab);
+  if(t) t.classList.add('active');
+}
+
+// ACCORDION
+function toggleAcc(btn) {
+  const body = btn.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.acc-b').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.acc-h').forEach(b => b.classList.remove('open'));
+  if(!isOpen) { body.classList.add('open'); btn.classList.add('open'); }
+}
+
+// SMOOTH SCROLL (works in all contexts including Claude viewer)
+function goTo(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var top = el.getBoundingClientRect().top + window.pageYOffset - 68;
+  window.scrollTo({top: top, behavior: 'smooth'});
+}
+
+// COPY
+function copyPrompt(id, btn) {
+  const el = document.getElementById(id);
+  const text = el.innerText || el.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copié !';
+    btn.style.background = 'var(--or)';
+    btn.style.color = 'var(--marine-deep)';
+    setTimeout(() => { btn.textContent = orig; btn.style.background=''; btn.style.color=''; }, 2000);
+  });
+}
+</script>
+</body>
+</html>
